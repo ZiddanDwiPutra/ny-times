@@ -1,18 +1,17 @@
 import Image from "next/image"
 import Link from "next/link";
 import Components from "../styles/Components.module.css"
+
 export default function Article({data, app, type = "2-col"}){    
     const {id, title, abstract, media} = data
     let price = 1000
-    const image = media.find(e=>e.type==="image")
-    const hasMetadata = image? image["media-metadata"] : false
-    const metadata = hasMetadata ? image["media-metadata"][1] : ""
-
+    const metadata = app.getMetadataFromMedia(media, 1)
+    const hasMetadata = metadata!="";
     return (
         <Link
             href={{
                 pathname: '/article-detail/[param]',
-                query: { param: app.encodeAsParamUri(Object.assign({metadata}, data)) },
+                query: { param: app.encodeAsParamUri(Object.assign({price}, data)) },
             }}
         >
             <div className={`row ${Components.card}`}>

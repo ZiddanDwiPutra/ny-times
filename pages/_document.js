@@ -17,6 +17,7 @@ export default function Document() {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-v4-grid-only@1.0.0/dist/bootstrap-grid.min.css" rel="stylesheet" />
       </Head>
       <body>
+        <div className='dialog display-none'>Dialog</div>
         <Main />
         <NextScript />
       </body>
