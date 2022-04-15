@@ -1,7 +1,7 @@
-export default function Home(){
+export default function LuckyCoin(){
     return(
         <div className="container">
-            Index
+            Lucky Coin
         </div>
     )
 }
