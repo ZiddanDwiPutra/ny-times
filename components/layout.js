@@ -1,11 +1,18 @@
 import Header from "./header"
-import Home from "../styles/Home.module.css"
+import SideBar from "./side-bar"
 
 export default function Layout({children}) {
 	return (
 		<div>
 			<Header />
-			<main className={Home.main}>{children}</main>
+			<div className="container-fluid">
+				<div className="row">
+					<main className={"col-md-10"}>{children}</main>
+					<div className={"col-md-2"}>
+						<SideBar />
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }

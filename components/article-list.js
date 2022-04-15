@@ -1,23 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import MainApi from "../services/MainApi";
 import Article from "./article";
 
-export default function ArticleList({ type = "card-list" }){
-    const [articles] = useState([
-        {id: 1, title: "Juice title", abstract: "Wowo"},
-        {id: 2, title: "Juice title", abstract: "Wowo"},
-    ]);
+export default function ArticleList({ app }){
+    const [articles, setArticles] = useState([]);
+
+    useEffect(()=>{
+        MainApi.getMostViewed(response=>{
+            setArticles(response.results);
+        })    
+    }, []);
 
     return (
         <div>
-            {getArticleList(articles)}
+            {getArticleList(articles, app)}
         </div>
     )
 }
 
-function getArticleList(dataList){
+function getArticleList(dataList, app){
     let articles = [];
     for(let data of dataList){
-        articles.push(<Article title={data.title} abstract={data.abstract} key={data.id}/>);
+        articles.push(<Article data={data} app={app} key={data.id}/>);
     }
     return articles;
 }

@@ -1,11 +1,9 @@
 import ArticleList from "../components/article-list"
 
-export default function Home(){
+export default function Home(props){
     return(
         <div className="container">
-            Index
-
-            <ArticleList />
+            <ArticleList {...props}/>
         </div>
     )
 }
