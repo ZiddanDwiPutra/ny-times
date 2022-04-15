@@ -2,7 +2,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Newsreader', -apple-system, sans-serif;
 }
 
 a {
@@ -12,8 +11,22 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: 'Newsreader', -apple-system, sans-serif;
+  font-size: 20pt;
+}
+
+.fs-30{
+  font-size: 30pt;
+}
+
+.fs-10{
+  font-size: 10pt;
 }
 
 .container{
   padding: 0 2rem;
+}
+
+.align-center{
+  text-align: center;
 }
