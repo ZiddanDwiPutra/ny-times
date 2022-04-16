@@ -46,6 +46,7 @@ a {
 }
 
 .dialog{
+  padding-top: 0.5rem;
   position: fixed;
   display: inline-block;
   width: 100%;
@@ -53,4 +54,51 @@ a {
   background: white;
   z-index: 100;
   top: 0;
+  
+}
+
+.dialog-title{
+  border-bottom: 1px solid #eaeaea;
+  padding: 1rem;
+  text-align: center;
+}
+
+.dialog-body{
+  padding: 2rem;
+}
+
+.dialog-footer{
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+button{
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  transition: 500ms box-shadow ease;
+  box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%);
+  margin-right: 1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  min-width: 200px;
+}
+
+.btn-blue{
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.btn-gray{
+  background-color: lightgray;
+}
+
+.btn-green{
+  background-color: lightgreen;
+  color: white;
+}
+
+button:hover{
+  box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 30%);
 }
