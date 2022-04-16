@@ -10,8 +10,8 @@ export default function Layout({ children , app}) {
 					<div className={"d-lg-none col-md-12"}>
 						<SideBar app={app}/>
 					</div>
-					<main className={"col-md-12 col-lg-9"}>{children}</main>
-					<div className={"d-none d-lg-block col-lg-3"}>
+					<main className={"col-md-12 col-lg-9 col-xl-10"}>{children}</main>
+					<div className={"d-none d-lg-block col-lg-3 col-xl-2"}>
 						<SideBar app={app}/>
 					</div>
 				</div>
