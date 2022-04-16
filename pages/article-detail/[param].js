@@ -81,7 +81,6 @@ function buyClick(app, article){
         callback: condition=>{
             if(condition){
                 StorageManager.addPurchasedArticles(article.id);
-                console.log(StorageManager.getPurchasedArticles());
             }
         }
     })

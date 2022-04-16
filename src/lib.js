@@ -27,4 +27,19 @@ export default class Lib{
 		const decodeResult = decodeURIComponent(value)
 		return JSON.parse(decodeResult)
 	}
+
+	static setToDigitFormat(num){
+        let reversePrice = String(num).split("").reverse()
+        let separator = 0
+        let result = ""
+        for(let i of reversePrice){
+            if(separator==3){
+                result += "."
+                separator = 0
+            }
+            result += i
+            separator++
+        }
+        return result.split("").reverse().join("")
+    }
 }

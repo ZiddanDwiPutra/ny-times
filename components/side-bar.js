@@ -1,7 +1,23 @@
 import Components from "../styles/Components.module.css"
+import UserCoin from "./user-coin"
+import Link from "next/link"
+import { useRouter } from "next/router"
 
-export default function SideBar(){
+export default function SideBar({ app }){
+    const router = useRouter()
+    
     return (
-        <div className={Components.sideBarBox}></div>
+        <div className={Components.sideBarBox}>
+            <UserCoin app={app} />
+            <nav>
+                <Link href={"/"}><button className={"fs-10 bold mb-1 " + isActive(router.pathname, "/")}>Articles</button></Link>
+                <Link href={"/purchased-articles"}><button className={"fs-10 bold mb-1 " + isActive(router.pathname, "/purchased-articles")}>Purchased Articles</button></Link>
+                <Link href={"/lucky-coin"}><button className={"fs-10 bold mb-1 " + isActive(router.pathname, "/lucky-coin")}>Lucky Coin</button></Link>
+            </nav>
+        </div>
     )
+}
+
+function isActive(routerPath, pathname){
+    if(routerPath == pathname) return 'active'
 }

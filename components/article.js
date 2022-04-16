@@ -6,7 +6,6 @@ import Lib from "../src/lib"
 
 export default function Article({data, app}){    
     const articleData = new ArticlePricing(data)
-    console.log(articleData)
     const {price, title, abstract, media} = articleData
     const metadata = app.getMetadataFromMedia(media, 1)
     const hasMetadata = metadata!="";

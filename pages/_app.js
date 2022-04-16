@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
 	)
 
 	return (
-		<Layout>
+		<Layout app={app}>
 			<Component {...pageProps} app={app} />
 		</Layout>
   	)

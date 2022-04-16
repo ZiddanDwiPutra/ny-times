@@ -15,7 +15,7 @@ export default class ArticlePricing{
         else if(dateRange <= 7)this.priceNum = 20000
         else this.priceNum = 0
 
-        this.setToPriceFormat()
+        this.price = Lib.setToDigitFormat(this.priceNum)
     }
 
     getDateRange(dateA, dateB){
@@ -29,20 +29,5 @@ export default class ArticlePricing{
             rangeCount++
         }
         return rangeCount
-    }
-
-    setToPriceFormat(){
-        let reversePrice = String(this.priceNum).split("").reverse()
-        let separator = 0
-        let result = ""
-        for(let i of reversePrice){
-            if(separator==3){
-                result += "."
-                separator = 0
-            }
-            result += i
-            separator++
-        }
-        this.price = result.split("").reverse().join("")
     }
 }
