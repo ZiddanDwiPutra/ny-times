@@ -1,17 +1,21 @@
 import Image from "next/image"
-import Link from "next/link";
+import Link from "next/link"
 import Components from "../styles/Components.module.css"
+import ArticlePricing from "../src/articlePricing"
+import Lib from "../src/lib"
 
-export default function Article({data, app, type = "2-col"}){    
-    const {id, title, abstract, media} = data
-    let price = 1000
+export default function Article({data, app}){    
+    const articleData = new ArticlePricing(data)
+    console.log(articleData)
+    const {price, title, abstract, media} = articleData
     const metadata = app.getMetadataFromMedia(media, 1)
     const hasMetadata = metadata!="";
+    
     return (
         <Link
             href={{
                 pathname: '/article-detail/[param]',
-                query: { param: app.encodeAsParamUri(Object.assign({price}, data)) },
+                query: { param: Lib.encodeAsParamUri(articleData) },
             }}
         >
             <div className={`row ${Components.card}`}>

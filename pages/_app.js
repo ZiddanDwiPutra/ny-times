@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import App from "../core/app"
+import App from "../src/app"
 import Layout from '../components/layout'
 import Dialog from '../components/dialog'
 import '../styles/globals.css'

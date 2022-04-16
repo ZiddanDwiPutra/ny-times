@@ -2,7 +2,8 @@ import Components from "../../styles/Components.module.css"
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import StorageManager from "../../core/storageManager"
+import StorageManager from "../../src/storageManager"
+import Lib from "../../src/lib"
 
 export default function ArticleDetail({ app }){
     const [isPurchased, setIsPurchased] = useState(false);
@@ -12,9 +13,9 @@ export default function ArticleDetail({ app }){
     let article = undefined
     let hasMetadata = false
     if(param){
-        article = app.decodeFromParamUri(param)
+        article = Lib.decodeFromParamUri(param)
+        article.publishDate = Lib.dateFormat(article.published_date)
         article.metadata = app.getMetadataFromMedia(article.media, 2)
-        article.publishDate = app.dateFormat(article.published_date)
         hasMetadata = article.metadata!=""
     }
     
