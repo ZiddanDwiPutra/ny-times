@@ -7,7 +7,7 @@ export default function Layout({ children , app}) {
 	const [isDialog, setIsDialog] = useState(false)
 	const [dialogData, setDialogData] = useState({})
 	
-	effectOnce(app, {setIsDialog, setDialogData})
+	useEffectOnce(app, {setIsDialog, setDialogData})
 	return (
 		<div>
 			<Header />
@@ -29,7 +29,7 @@ export default function Layout({ children , app}) {
 	)
 }
 
-function effectOnce(app, {setIsDialog, setDialogData}){
+function useEffectOnce(app, {setIsDialog, setDialogData}){
 	useEffect(()=>{
 		app.toggleDialog = (value, {title, type, body, dialogSize, footer, callback})=>{
 			setIsDialog(value)

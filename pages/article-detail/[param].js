@@ -13,7 +13,7 @@ export default function ArticleDetail({ app }){
     const { param } = router.query
     
     const article = decodeParam(app, param)
-    effectByParam(param, setIsPurchased, article ? article.id : "")
+    useEffectByParam(param, setIsPurchased, article ? article.id : "")
     
     if(article == undefined) return
     
@@ -63,7 +63,7 @@ function decodeParam(app, param){
     return article
 }
 
-function effectByParam(param, callback, articleId){
+function useEffectByParam(param, callback, articleId){
     useEffect(()=>{
         if(param){
             const isPurchased = StorageManager.getPurchasedArticles().find(obj => obj.id == articleId)

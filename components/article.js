@@ -13,7 +13,7 @@ export default function Article({data, app}){
     const metadata = app.getMetadataFromMedia(media, 1)
     const hasMetadata = metadata!="";
     
-    effectPurchased(id, setIsPurchased)
+    useEffectSetPurchased(id, setIsPurchased)
 
     return (
         <Link
@@ -42,10 +42,10 @@ export default function Article({data, app}){
     )
 }
 
-function effectPurchased(articleId, callback){
+function useEffectSetPurchased(articleId, callback){
     useEffect(()=>{
         if(articleId=="") return
         const isPurchased = StorageManager.getPurchasedArticles().find(obj => obj.id == articleId)
         if(isPurchased) callback(true)
-    }, [])
+    }, [articleId])
 }

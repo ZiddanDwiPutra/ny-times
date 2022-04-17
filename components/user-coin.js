@@ -7,7 +7,7 @@ export default function UserCoin({ app }){
     useEffect(()=>{
         setBalance(new Balance())
         app.setBalance = setBalance
-    }, [])
+    }, [app])
 
     return (
         <div className="mb-1">
