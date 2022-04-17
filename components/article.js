@@ -24,7 +24,7 @@ export default function Article({data, app}){
         >
             <div className={`row ${Components.card}`}>
                 <div className={hasMetadata? "col-md-2": "display-none"}>
-                    {hasMetadata? <Image src={metadata.url} width={metadata.width} height={metadata.height} style={{float: "left"}}/>: ""}
+                    {hasMetadata? <Image alt="article-image" src={metadata.url} width={metadata.width} height={metadata.height} style={{float: "left"}}/>: ""}
                 </div>
                 <div className={"col-md-10"}>
                     <div className="bold">{title}</div>

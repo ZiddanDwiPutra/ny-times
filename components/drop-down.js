@@ -1,5 +1,5 @@
-export default function DropDown({ app, items, onInput}){
+export default function DropDown({ items, onInput}){
     const itemChilds = []
-    for(let item of items) itemChilds.push(<option key={item.id} value={item.id}>{item.name}</option>)
-    return <select className="form-select" onInput={(e)=>onInput(e.target.value)}>{itemChilds}</select>
+    for(let item of items) itemChilds.push(<option className="fs-15" key={item.id} value={item.id}>{item.name}</option>)
+    return <select className="form-select fs-15 pointer" onInput={(e)=>onInput(e.target.value)}>{itemChilds}</select>
 }

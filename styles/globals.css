@@ -153,7 +153,9 @@ button:active{
 .loading{
   padding-top: 10%;
 }
-
+.pointer{
+  cursor: pointer;
+}
 .rotate {
   animation: rotation 2s infinite linear;
 }
