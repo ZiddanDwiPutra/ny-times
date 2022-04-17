@@ -5,8 +5,12 @@ import DropDown from "./drop-down";
 import SearchBar from "./search-bar";
 
 export default function ArticleList({ app }){
-    const [articles, setArticles] = useState([]);
-    const [searchValue, setSearchValue] = useState("");
+    const [articles, setArticles] = useState([])
+    const [searchValue, setSearchValue] = useState("")
+    const [pageNumber, setPageNumber] = useState(1)
+    const [totalPage, setTotalPage] = useState(1)
+    const [filterBy, setFilterBy] = useState("")
+
     const filterItems = [
         {id: "most_emailed", name: "Most Emailed"},
         {id: "most_shared", name: "Most Shared"},
@@ -16,36 +20,53 @@ export default function ArticleList({ app }){
     useEffect(()=>{
         if(filterItems.length>0) filterChange(filterItems[0].id, setArticles)
     }, []);
+    
+    useEffect(()=>setPageNumber(1), [searchValue, filterBy])
 
     return (
         <div className="container m-1">
             <div className="row">
                 <div className="col-md-4">
-                    <DropDown items={filterItems} onInput={(id)=>filterChange(id, setArticles)} />
+                    <DropDown items={filterItems} onInput={(id)=>{filterChange(id, setArticles);setFilterBy(id)}} />
                 </div>
                 <div className="col-md-8">
                     <SearchBar onInput={(value)=>setSearchValue(value)} placeholder="Search Article by Title or Abstract " />
                 </div>
             </div>
-            <Articles dataList={articles} searchValue={searchValue} app={app}/>
+            
+            <Articles dataList={articles} searchValue={searchValue} app={app} limitPerPage={5} pageNumber={pageNumber} setTotalPage={setTotalPage}/>
+
+            <Pagination setPageNumber={setPageNumber} pageNumber={pageNumber} totalPage={totalPage} />
         </div>
     )
 }
 
-function Articles({searchValue, dataList, app}){
+function Articles({searchValue, dataList, limitPerPage, pageNumber, setTotalPage, app}){
     const [filteredList, setFilteredList] = useState([])
     useEffect(()=>{
         let result = dataList.filter(article => 
             article.title.toLowerCase().includes(searchValue.toLowerCase()) || 
             article.abstract.toLowerCase().includes(searchValue.toLowerCase()))
-        setFilteredList(searchValue=="" ? dataList : result)
-    }, [searchValue, dataList, app])
+        
+        setTotalPage(result.length <= limitPerPage? 1 : Math.round(result.length / 5))
+        setFilteredList(result.splice(limitPerPage*(pageNumber-1), limitPerPage))
+    }, [searchValue, dataList, app, limitPerPage, pageNumber])
     
     let articles = [];
     for(let data of filteredList){
         articles.push(<Article data={data} app={app} key={data.id}/>);
     }
     return articles;
+}
+
+function Pagination({pageNumber, totalPage, setPageNumber}){
+    return (
+        <div align="right">
+            <button className="fs-15 no-min-width" disabled={pageNumber==1? true: false} onClick={()=>setPageNumber(--pageNumber)}><i className="bi-caret-left-square-fill"/></button>
+            <button className="fs-15 no-min-width" style={{paddingTop: "15px"}}>{pageNumber}</button>
+            <button className="fs-15 no-min-width" disabled={pageNumber==totalPage? true: false} onClick={()=>setPageNumber(++pageNumber)}><i className="bi-caret-right-square-fill"/></button>
+        </div>
+    )
 }
 
 function filterChange(filterId, setArticles){
