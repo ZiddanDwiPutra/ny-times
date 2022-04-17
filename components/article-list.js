@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import MainApi from "../services/MainApi";
+import StorageManager from "../src/storageManager";
 import Article from "./article";
 import DropDown from "./drop-down";
 import SearchBar from "./search-bar";
 
-export default function ArticleList({ app }){
+export default function ArticleList({ app , isPurchasedOnly = false }){
     const [articles, setArticles] = useState([])
     const [searchValue, setSearchValue] = useState("")
     const [pageNumber, setPageNumber] = useState(1)
@@ -18,7 +19,7 @@ export default function ArticleList({ app }){
     ]
 
     useEffect(()=>{
-        if(filterItems.length>0) filterChange(filterItems[0].id, setArticles)
+        if(filterItems.length>0) filterChange(isPurchasedOnly? "purchased": filterItems[0].id, setArticles)
     }, []);
     
     useEffect(()=>setPageNumber(1), [searchValue, filterBy])
@@ -26,17 +27,19 @@ export default function ArticleList({ app }){
     return (
         <div className="container m-1">
             <div className="row">
-                <div className="col-md-4">
-                    <DropDown items={filterItems} onInput={(id)=>{filterChange(id, setArticles);setFilterBy(id)}} />
-                </div>
+                {   
+                    isPurchasedOnly? "" :
+                    <div className="col-md-4">
+                        <DropDown items={filterItems} onInput={(id)=>{filterChange(id, setArticles);setFilterBy(id)}} />
+                    </div>
+                }
                 <div className="col-md-8">
                     <SearchBar onInput={(value)=>setSearchValue(value)} placeholder="Search Article by Title or Abstract " />
                 </div>
             </div>
             
             <Articles dataList={articles} searchValue={searchValue} app={app} limitPerPage={5} pageNumber={pageNumber} setTotalPage={setTotalPage}/>
-
-            <Pagination setPageNumber={setPageNumber} pageNumber={pageNumber} totalPage={totalPage} />
+            {articles.length>0? <Pagination setPageNumber={setPageNumber} pageNumber={pageNumber} totalPage={totalPage} /> : <div>No data result</div>}
         </div>
     )
 }
@@ -72,5 +75,10 @@ function Pagination({pageNumber, totalPage, setPageNumber}){
 function filterChange(filterId, setArticles){
     if(filterId=="most_viewed") MainApi.getMostViewed(response=>setArticles(response.results))  
     if(filterId=="most_shared") MainApi.getMostShared(response=>setArticles(response.results))  
-    if(filterId=="most_emailed") MainApi.getMostEmailed(response=>setArticles(response.results))  
+    if(filterId=="most_emailed") MainApi.getMostEmailed(response=>setArticles(response.results))
+    if(filterId=="purchased"){
+        setTimeout(()=>{
+            setArticles(StorageManager.getPurchasedArticles())
+        }, 100)
+    }
 }
