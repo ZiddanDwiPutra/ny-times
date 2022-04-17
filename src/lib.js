@@ -42,4 +42,23 @@ export default class Lib{
         }
         return result.split("").reverse().join("")
     }
+
+	    
+    static getFromStorage(KEY, useDecode = false){
+        let values = localStorage.getItem(KEY)
+        if(values==null) return []
+        if(useDecode) return values.split(",").map(value=> JSON.parse(decodeURIComponent(value)))
+        return values.split(",")
+    }
+
+    static setToStorage(KEY, arr = []){
+        localStorage.setItem(KEY, arr.join(","))
+    }
+
+    static addToStorage(KEY, value, useEncode){
+        const useDecode = useEncode
+        let list = this.getFromStorage(KEY, useDecode)
+        list.push(useEncode ? encodeURIComponent(JSON.stringify(value)) : value)
+        this.setToStorage(KEY, list)
+    }
 }

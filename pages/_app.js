@@ -5,7 +5,7 @@ import Dialog from '../components/dialog'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
-	const [app, setApp] = useState(new App())
+	const [app] = useState(new App())
 	const [isDialog, setIsDialog] = useState(false)
 	const [dialogData, setDialogData] = useState({})
 	

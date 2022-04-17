@@ -4,45 +4,24 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import StorageManager from "../../src/storageManager"
 import Lib from "../../src/lib"
+import Transaction from "../../src/transaction"
 
 export default function ArticleDetail({ app }){
     const [isPurchased, setIsPurchased] = useState(false);
     const router = useRouter()
     const { param } = router.query
     
-    let article = undefined
-    let hasMetadata = false
-    if(param){
-        article = Lib.decodeFromParamUri(param)
-        article.publishDate = Lib.dateFormat(article.published_date)
-        article.metadata = app.getMetadataFromMedia(article.media, 2)
-        hasMetadata = article.metadata!=""
-    }
-    
-    useEffect(()=>{
-        if(param){
-            const finded = StorageManager.getPurchasedArticles().find(id => id == article.id)
-            if(finded) setIsPurchased(true)
-        }
-    }, [param])
+    const article = decodeParam(app, param)
+    effectByParam(param, setIsPurchased, article ? article.id : "")
     
     if(article == undefined) return <h1>404 - Page Not Found</h1>
     
-    const purchaseSection = !isPurchased ?(
-        <div className={Components.purchaseSection}>
-            <div>
-                <span className={Components.price}>{article.price > 0 ? article.price+" NYT Coin" : "FREE"}</span>
-            </div>
-            <button className="btn-green" onClick={()=>buyClick(app, article)}>BUY</button>
-        </div>
-    ) : (<div></div>)
-
     return (
         <div className={Components.pageBox + " container-fluid"}>
             <div className={Components.pageTextHeader}>Article Detail</div>
             <div className="row">
                 <div className="col-md-4">
-                    {hasMetadata? <Image src={article.metadata.url} width={article.metadata.width} height={article.metadata.height}/>: ""}
+                    {article.hasMetaData? <Image src={article.metadata.url} width={article.metadata.width} height={article.metadata.height}/>: ""}
                 </div>
                 <div className="col-md-8">
                     <div className="fs-30 bold">{article.title}</div>
@@ -50,11 +29,50 @@ export default function ArticleDetail({ app }){
                     <div className="fs-10 light">{article.publishDate}</div>
                     <p>{article.abstract}</p>
 
-                    {purchaseSection}
+                    <PurchaseAction isPurchased={isPurchased} article={article} app={app} />
                 </div>
             </div>
         </div>
     )
+}
+
+function PurchaseAction({isPurchased, article, app}){
+    return !isPurchased ?(
+        <div className={Components.purchaseSection}>
+            <div>
+                <span className={Components.price}>{article.price > 0 ? article.price+" NYT Coin" : "FREE"}</span>
+            </div>
+            <button className="btn-green" onClick={()=>buyClick(app, article)}>BUY</button>
+        </div>
+    ) : (
+        <div>
+            <button className="fs-15" onClick={()=>openOriginalClick(article.url)}>Open Original Article <i className="bi-box-arrow-up-right"/></button>
+        </div>
+    )
+}
+
+function decodeParam(app, param){
+    let article = undefined
+    if(param){
+        article = Lib.decodeFromParamUri(param)
+        article.publishDate = Lib.dateFormat(article.published_date)
+        article.metadata = app.getMetadataFromMedia(article.media, 2)
+        article.hasMetaData = article.metadata!=""
+    }
+    return article
+}
+
+function effectByParam(param, callback, articleId){
+    useEffect(()=>{
+        if(param){
+            const isPurchased = StorageManager.getPurchasedArticles().find(obj => obj.id == articleId)
+            if(isPurchased) callback(true)
+        }
+    }, [param])
+}
+
+function openOriginalClick(url){
+    window.open(url, "_blank", "");
 }
 
 function buyClick(app, article){
@@ -63,7 +81,7 @@ function buyClick(app, article){
             <div className="bold">Do you agree to the following purchases:</div><br/>
             <div>Article Title : <span className="light">{article.title}</span></div>
             <div>Published on : <span className="light">{article.publishDate}</span> </div>
-            <div>Price : <span className="light">{article.price} NYT Coin</span></div>
+            <div>Price : <span className="light">{article.price == 0 ? "FREE" : article.price + " NYT Coin"} </span></div>
             <div>
                 <ul>
                     <li className="fs-10">by clicking the accept button, you mean that you have knowingly agreed to all the terms and conditions of purchase</li>
@@ -79,9 +97,8 @@ function buyClick(app, article){
         type: app.dialogType.CONFIRMATION, 
         body, 
         callback: condition=>{
-            if(condition){
-                StorageManager.addPurchasedArticles(article.id);
-            }
+            const transaction = new Transaction(article)
+            if(condition) transaction.purchase()
         }
     })
 }

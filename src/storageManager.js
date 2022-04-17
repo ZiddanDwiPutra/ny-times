@@ -1,22 +1,22 @@
+import Lib from "./lib"
+
 export default class StorageManager{
     static get KEY(){
         return {
+            TRANSACTION: "TRANSACTION",
             PURCHASED_ARTICLES: "PURCHASED_ARTICLES"
         }
     }
-    static getPurchasedArticles(){
-        let values = localStorage.getItem(this.KEY.PURCHASED_ARTICLES)
-        if(values==null)return []
-        return values.split(",")
-    }
+
+    static getPurchasedArticles(){return Lib.getFromStorage(this.KEY.PURCHASED_ARTICLES, true)}
     
-    static setPurchasedArticles(arr = []){
-        localStorage.setItem(this.KEY.PURCHASED_ARTICLES, arr.join(","))
+    static addPurchasedArticles(article){
+        Lib.addToStorage(this.KEY.PURCHASED_ARTICLES, article, true)
     }
 
-    static addPurchasedArticles(id){
-        let list = this.getPurchasedArticles();
-        list.push(id);
-        this.setPurchasedArticles(list);
+    static getTransactions(){return Lib.getFromStorage(this.KEY.TRANSACTION, true)}
+    
+    static addTransactions(transaction){
+        Lib.addToStorage(this.KEY.TRANSACTION, transaction, true)
     }
 }
