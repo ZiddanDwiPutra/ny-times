@@ -9,25 +9,25 @@ function MyApp({ Component, pageProps }) {
 	const [isDialog, setIsDialog] = useState(false)
 	const [dialogData, setDialogData] = useState({})
 	
-	useEffect(()=>{
-		app.toggleDialog = (value, {title, type, body, callback})=>{
-			setIsDialog(value)
-			setDialogData({title, type, body, callback})
-		}
-	}, [])
-
-	if(isDialog) return (
-		<Dialog app={app} title={dialogData.title} type={dialogData.type} callback={dialogData.callback}>
-			{dialogData.body}
-		</Dialog>
-	)
+	effectOnce(app, {setIsDialog, setDialogData})
 
 	return (
 		<Layout app={app}>
+			<Dialog app={app} isVisible={isDialog} dialogSize={dialogData.dialogSize} title={dialogData.title} type={dialogData.type} callback={dialogData.callback}>
+				{dialogData.body}
+			</Dialog>
 			<Component {...pageProps} app={app} />
 		</Layout>
   	)
 }
 
+function effectOnce(app, {setIsDialog, setDialogData}){
+	useEffect(()=>{
+		app.toggleDialog = (value, {title, type, body, dialogSize, callback})=>{
+			setIsDialog(value)
+			setDialogData({title, type, body, dialogSize, callback})
+		}
+	}, [])
+}
 
 export default MyApp

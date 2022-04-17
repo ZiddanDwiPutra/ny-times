@@ -2,6 +2,7 @@ import Components from "../../styles/Components.module.css"
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import PurchaseConfirmationBody from "../../components/purchase-confirmation-body"
 import StorageManager from "../../src/storageManager"
 import Lib from "../../src/lib"
 import Transaction from "../../src/transaction"
@@ -14,7 +15,7 @@ export default function ArticleDetail({ app }){
     const article = decodeParam(app, param)
     effectByParam(param, setIsPurchased, article ? article.id : "")
     
-    if(article == undefined) return <h1>404 - Page Not Found</h1>
+    if(article == undefined) return
     
     return (
         <div className={Components.pageBox + " container-fluid"}>
@@ -76,29 +77,19 @@ function openOriginalClick(url){
 }
 
 function buyClick(app, article){
-    const body = (
-        <div>
-            <div className="bold">Do you agree to the following purchases:</div><br/>
-            <div>Article Title : <span className="light">{article.title}</span></div>
-            <div>Published on : <span className="light">{article.publishDate}</span> </div>
-            <div>Price : <span className="light">{article.price == 0 ? "FREE" : article.price + " NYT Coin"} </span></div>
-            <div>
-                <ul>
-                    <li className="fs-10">by clicking the accept button, you mean that you have knowingly agreed to all the terms and conditions of purchase</li>
-                    <li className="fs-10">Purchased content cannot be refunded</li>
-                    <li className="fs-10">You have also agreed to all customer rules applied to the NY Times</li>
-                </ul>
-            </div>
-        </div>
-    )
-
+    const {coins} = app.getBalance()
+    if(coins < article.priceNum)return alert("money not available")
     app.showDialog({
         title: "Purchase Confirmation", 
         type: app.dialogType.CONFIRMATION, 
-        body, 
+        body: <PurchaseConfirmationBody app={app} article={article}/>, 
+        dialogSize: app.dialogSize.LG,
         callback: condition=>{
             const transaction = new Transaction(article)
-            if(condition) transaction.purchase()
+            if(condition) {
+                transaction.purchase()
+                location.reload()
+            }
         }
     })
 }

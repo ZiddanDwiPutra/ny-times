@@ -1,10 +1,13 @@
+import Balance from "./balance"
+
 export default class App{
 	constructor(){
 		this.appName = "NYTimes"
 		this.isShowDialog = false
 		this.userName = "@UserDemo_01"
+		this.coins = 0
+		this.tickets = 0
 	}
-
 
 	get dialogType(){
 		return {
@@ -13,10 +16,23 @@ export default class App{
 		}
 	}
 
-	toggleDialog(isDialogShow, {title, type, body, callback}){/* use for callback */}
+	get dialogSize(){
+		return {
+			FULL: "full",
+			LG: "lg",
+			MD: "md",
+			SM: "sm",
+		}
+	}
+
+	toggleDialog(isDialogShow, {title, type, body, dialogSize, callback}){/* use for callback */}
+	setBalance({coins, tickets}){/* use for callback */}
+	getBalance(){
+		return new Balance()
+	}
 	
-	showDialog({title, type = this.dialogType.DIALOG, body, callback}){
-		this.toggleDialog(true, {title, type, body, callback})
+	showDialog({title, type = this.dialogType.DIALOG, body, dialogSize, callback}){
+		this.toggleDialog(true, {title, type, body, dialogSize, callback})
 	}
 
 	closeDialog(){

@@ -34,6 +34,11 @@ nav button {
   border-radius: 10px;
 }
 
+.bg-black{
+  background-color: black;
+  color: white;
+}
+
 .display-none{
   display: none !important;
 }
@@ -68,17 +73,27 @@ nav button {
   text-align: center;
 }
 
+.wrapper{
+  position: fixed;
+  left: 0;top: 0;
+  width: 100%; height: 100%;
+  background-color: rgb(0 0 0 / 50%);
+  z-index: 90;
+}
+
 .dialog{
   padding-top: 0.5rem;
   position: fixed;
   display: inline-block;
-  width: 100%;
-  height: 100%;
   background: white;
   z-index: 100;
-  top: 0;
-  
+  transition: 1s display ease;
 }
+
+.dialog-size-full{width: 100%; height: 100%; top: 0; left: 0;}
+.dialog-size-lg{width: 80%; height: 80%; top: 10%; left: 10%;}
+.dialog-size-md{width: 60%; height: 80%; top: 10%; left: 20%;}
+.dialog-size-sm{width: 40%; height: 80%; top: 10%; left: 30%;}
 
 .dialog-title{
   border-bottom: 1px solid #eaeaea;
@@ -91,7 +106,7 @@ nav button {
 }
 
 .dialog-footer{
-  position: fixed;
+  position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
 }
