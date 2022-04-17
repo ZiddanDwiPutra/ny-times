@@ -43,7 +43,7 @@ function PurchaseAction({isPurchased, article, app}){
             <div>
                 <span className={Components.price}>{article.price > 0 ? article.price+" NYT Coin" : "FREE"}</span>
             </div>
-            <button className="btn-green" onClick={()=>buyClick(app, article)}>BUY</button>
+            <button className="btn-green fs-15" onClick={()=>buyClick(app, article)}>BUY</button>
         </div>
     ) : (
         <div>

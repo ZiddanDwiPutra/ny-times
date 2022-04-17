@@ -6,6 +6,7 @@ export default function ArticleList({ app }){
     const [articles, setArticles] = useState([]);
 
     useEffect(()=>{
+        // console.log(app)
         MainApi.getMostViewed(response=>{
             setArticles(response.results);
         })    

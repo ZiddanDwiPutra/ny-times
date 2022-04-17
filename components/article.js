@@ -27,7 +27,7 @@ export default function Article({data, app}){
                     {hasMetadata? <Image src={metadata.url} width={metadata.width} height={metadata.height} style={{float: "left"}}/>: ""}
                 </div>
                 <div className={"col-md-10"}>
-                    <div className="bold fs-30">{title}</div>
+                    <div className="bold">{title}</div>
                     <div>{abstract}</div>
                     {
                         isPurchased ? (
