@@ -1,3 +1,4 @@
+import Balance from "./balance"
 import StorageManager from "./storageManager"
 
 export default class Transaction{
@@ -22,9 +23,16 @@ export default class Transaction{
     saveTransaction(){
         const {itemId, dateTime, type, price} = this
         StorageManager.addTransactions({itemId, dateTime, type, price})
-
-        console.log("TRX", StorageManager.getTransactions())
-        console.log("ART", StorageManager.getPurchasedArticles())
+        if(this.type == Transaction.TYPE.COIN) this.saveBalanceHistory({itemId, price})
+    }
+    
+    saveBalanceHistory({itemId, price}){
+        StorageManager.addBalanceHistory({
+            total: -price,
+            refId: itemId,
+            refObject: "transaction",
+            type: Balance.TYPE.COIN
+        })
     }
 
     static get TYPE(){

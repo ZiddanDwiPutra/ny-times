@@ -4,7 +4,8 @@ export default class StorageManager{
     static get KEY(){
         return {
             TRANSACTION: "TRANSACTION",
-            PURCHASED_ARTICLES: "PURCHASED_ARTICLES"
+            PURCHASED_ARTICLES: "PURCHASED_ARTICLES",
+            BALANCE_HISTORY: "BALANCE_HISTORY",
         }
     }
 
@@ -19,4 +20,13 @@ export default class StorageManager{
     static addTransactions(transaction){
         Lib.addToStorage(this.KEY.TRANSACTION, transaction, true)
     }
+
+    static getBalanceHistory(type){
+        return Lib.getFromStorage(this.KEY.BALANCE_HISTORY, true).filter(obj=>obj.type == type)
+    }
+    
+    static addBalanceHistory({total, refId, refObject, type}){
+        Lib.addToStorage(this.KEY.BALANCE_HISTORY, {total, refId, refObject, type}, true)
+    }
+
 }

@@ -47,7 +47,7 @@ export default class Lib{
     static getFromStorage(KEY, useDecode = false){
         let values = localStorage.getItem(KEY)
         if(values==null) return []
-        if(useDecode) return values.split(",").map(value=> JSON.parse(decodeURIComponent(value)))
+        if(useDecode) return values.split(",").map(value=> JSON.parse(decodeURIComponent(atob(value))))
         return values.split(",")
     }
 
@@ -56,9 +56,14 @@ export default class Lib{
     }
 
     static addToStorage(KEY, value, useEncode){
-        const useDecode = useEncode
-        let list = this.getFromStorage(KEY, useDecode)
-        list.push(useEncode ? encodeURIComponent(JSON.stringify(value)) : value)
+        let list = this.getFromStorage(KEY, false)
+        list.push(useEncode ? btoa(encodeURIComponent(JSON.stringify(value))) : value)
         this.setToStorage(KEY, list)
     }
+
+	static arraySum(arrayNumber){
+		let total = 0
+		for(let num of arrayNumber) total+=num
+		return total
+	}
 }

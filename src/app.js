@@ -2,8 +2,7 @@ export default class App{
 	constructor(){
 		this.appName = "NYTimes"
 		this.isShowDialog = false
-		this.coins = 100000
-		this.luckyTickets = 0
+		this.userName = "@UserDemo_01"
 	}
 
 

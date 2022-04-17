@@ -3,13 +3,18 @@ import Link from "next/link"
 import Components from "../styles/Components.module.css"
 import ArticlePricing from "../src/articlePricing"
 import Lib from "../src/lib"
+import { useEffect, useState } from "react"
+import StorageManager from "../src/storageManager"
 
 export default function Article({data, app}){    
+    const [isPurchased, setIsPurchased] = useState(false);
     const articleData = new ArticlePricing(data)
-    const {price, title, abstract, media} = articleData
+    const {id, price, title, abstract, media} = articleData
     const metadata = app.getMetadataFromMedia(media, 1)
     const hasMetadata = metadata!="";
     
+    effectPurchased(id, setIsPurchased)
+
     return (
         <Link
             href={{
@@ -24,9 +29,23 @@ export default function Article({data, app}){
                 <div className={"col-md-10"}>
                     <div className="bold fs-30">{title}</div>
                     <div>{abstract}</div>
-                    <div className={Components.price}>{price > 0 ? price+" NYT Coin" : "FREE"}</div>
+                    {
+                        isPurchased ? (
+                            <div className={Components.purchased}>{"Purchased"}</div>
+                        ) : (
+                            <div className={Components.price}>{price > 0 ? price+" NYT Coin" : "FREE"}</div>
+                        )
+                    }
                 </div>
             </div>
         </Link>
     )
+}
+
+function effectPurchased(articleId, callback){
+    useEffect(()=>{
+        if(articleId=="") return
+        const isPurchased = StorageManager.getPurchasedArticles().find(obj => obj.id == articleId)
+        if(isPurchased) callback(true)
+    }, [])
 }

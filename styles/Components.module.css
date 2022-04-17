@@ -28,6 +28,16 @@
     line-height: 1.5;
 }
 
+.purchased{
+    font-size: 10pt;
+    background: cornflowerblue;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    display: inline-block;
+}
+
 .price{
     font-size: 10pt;
     background: gold;
