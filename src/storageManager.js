@@ -29,4 +29,12 @@ export default class StorageManager{
         Lib.addToStorage(this.KEY.BALANCE_HISTORY, {total, refId, refObject, type}, true)
     }
 
+    static getUserName(){
+        return localStorage.getItem("USER_NAME")
+    }
+
+    static setUserName(value){
+        localStorage.setItem("USER_NAME", value)
+    }
+
 }

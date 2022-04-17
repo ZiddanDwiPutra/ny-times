@@ -25,14 +25,18 @@ export default class App{
 		}
 	}
 
-	toggleDialog(isDialogShow, {title, type, body, dialogSize, callback}){/* use for callback */}
+	toggleDialog(isDialogShow, {title, type, body, dialogSize, footer, callback}){/* use for callback */}
 	setBalance({coins, tickets}){/* use for callback */}
 	getBalance(){
 		return new Balance()
 	}
+	refreshBalance(){
+		const {coins, tickets} = this.getBalance()
+		this.setBalance({coins, tickets})
+	}
 	
-	showDialog({title, type = this.dialogType.DIALOG, body, dialogSize, callback}){
-		this.toggleDialog(true, {title, type, body, dialogSize, callback})
+	showDialog({title, type = this.dialogType.DIALOG, body, dialogSize, footer, callback}){
+		this.toggleDialog(true, {title, type, body, dialogSize, footer, callback})
 	}
 
 	closeDialog(){

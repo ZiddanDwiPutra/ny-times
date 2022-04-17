@@ -91,9 +91,9 @@ nav button {
 }
 
 .dialog-size-full{width: 100%; height: 100%; top: 0; left: 0;}
-.dialog-size-lg{width: 80%; height: 80%; top: 10%; left: 10%;}
-.dialog-size-md{width: 60%; height: 80%; top: 10%; left: 20%;}
-.dialog-size-sm{width: 40%; height: 80%; top: 10%; left: 30%;}
+.dialog-size-lg{width: 80%; height: 80%; top: 5%; left: 10%;}
+.dialog-size-md{width: 60%; height: 80%; top: 5%; left: 20%;}
+.dialog-size-sm{width: 40%; height: 80%; top: 5%; left: 30%;}
 
 .dialog-title{
   border-bottom: 1px solid #eaeaea;
@@ -139,4 +139,13 @@ button{
 
 button:hover{
   box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 30%);
+}
+button:active{
+  opacity: 0.8;
+}
+
+.absolute-bottom{
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
 }

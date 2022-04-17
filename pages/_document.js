@@ -1,10 +1,8 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import "../src/lib"
 export default function Document() {
   return (
     <Html>
       <Head>
-        <title>NYTimes</title>
         <meta name="description" content="Provide services for purchasing articles from NYtimes" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
