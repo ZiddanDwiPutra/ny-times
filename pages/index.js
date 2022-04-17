@@ -16,7 +16,7 @@ export default function Home({app}){
                 dialogSize: app.dialogSize.SM
             })
         }
-    }, [app])
+    }, [])
     return(
         <div className="container">
             <ArticleList app={app}/>
