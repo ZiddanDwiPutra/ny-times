@@ -8,13 +8,15 @@ export default function Home({app}){
     useEffect(()=>{
         const userName = StorageManager.getUserName()
         if(userName==null) {
-            app.showDialog({
-                title : "Welcome "+ app.userName + " !!", 
-                type : app.dialogType.DIALOG, 
-                body : <WelcomeBody/>, 
-                footer: <WelcomeFooter app={app}/>,
-                dialogSize: app.dialogSize.SM
-            })
+            setTimeout(()=>{
+                app.showDialog({
+                    title : "Welcome "+ app.userName + " !!", 
+                    type : app.dialogType.DIALOG, 
+                    body : <WelcomeBody/>, 
+                    footer: <WelcomeFooter app={app}/>,
+                    dialogSize: app.dialogSize.SM
+                })
+            }, 100)
         }
     }, [])
     return(
