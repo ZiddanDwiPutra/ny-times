@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import ArticleList from "../components/article-list"
 import Balance from "../src/balance"
 import StorageManager from "../src/storageManager"
+import WelcomeImg from "../public/assets/4989777.jpg"
+import Image from "next/image"
 
 export default function Home({app}){
 
@@ -20,7 +22,7 @@ export default function Home({app}){
         }
     }, [])
     return(
-        <div className="container">
+        <div className="container" style={{marginTop: "1rem"}}>
             <ArticleList app={app}/>
         </div>
     )
@@ -29,8 +31,14 @@ export default function Home({app}){
 function WelcomeBody(){
     return(
         <div className="fs-15">
-           Congratulations, you got 100,000 coins as initial credit, coins can be used as payment, browse and explore various articles in the New York Times. 
-           <div className="fs-10 italic"> * Click Browse button below to continue</div>
+            Congratulations, you got 100,000 coins as initial credit, coins can be used as payment, browse and explore various articles in the New York Times. 
+            <div className="fs-10"> * Click Browse button below to continue</div>
+            <div className="mb-1" align="center">
+                <Image alt="welcome-party" src={WelcomeImg} width={200} height={180}/>
+            </div>
+            <div align="center">
+                <a href="https://www.freepik.com/vectors/welcome-party"  className="fs-10">Welcome party vector created by storyset - www.freepik.com</a>
+            </div>
         </div>
     )
 }

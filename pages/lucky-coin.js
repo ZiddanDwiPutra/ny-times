@@ -1,7 +1,8 @@
-export default function LuckyCoin(){
-    return(
-        <div className="container">
-            Lucky Coin
+import Components from "../styles/Components.module.css"
+export default function LuckyCoin({ app }){
+    return (
+        <div className={Components.pageBox + " container-fluid"}>
+            <div className={Components.pageTextHeader}>Lucky Coins</div>
         </div>
     )
 }
