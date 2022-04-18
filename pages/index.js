@@ -36,9 +36,6 @@ function WelcomeBody(){
             <div className="mb-1" align="center">
                 <Image alt="welcome-party" src={WelcomeImg} width={200} height={180}/>
             </div>
-            <div align="center">
-                <a href="https://www.freepik.com/vectors/welcome-party"  className="fs-10">Welcome party vector created by storyset - www.freepik.com</a>
-            </div>
         </div>
     )
 }

@@ -28,6 +28,8 @@ nav button {
   font-size: 20pt;
 }
 
+ul.line-height-15 li {line-height: 15px;}
+
 .box{
   padding: 0.25rem 0.5rem;
   border: 1px solid #eaeaea;

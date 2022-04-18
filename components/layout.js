@@ -2,6 +2,7 @@ import Header from "./header"
 import SideBar from "./side-bar"
 import Dialog from '../components/dialog'
 import { useState, useEffect } from 'react'
+import Footer from "./footer"
 
 export default function Layout({ children , app}) {
 	const [isDialog, setIsDialog] = useState(false)
@@ -25,6 +26,7 @@ export default function Layout({ children , app}) {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	)
 }
