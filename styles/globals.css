@@ -29,6 +29,7 @@ nav button {
 }
 
 ul.line-height-15 li {line-height: 15px;}
+ul.line-height-20 li {line-height: 20px;}
 
 .box{
   padding: 0.25rem 0.5rem;
@@ -119,10 +120,12 @@ button{
   border: none;
   transition: 500ms box-shadow ease;
   box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%);
-  margin-right: 1rem;
   padding: 10px 20px;
   border-radius: 5px;
   min-width: 200px;
+}
+.mr-1{
+  margin-right: 1rem;
 }
 
 .btn-blue{

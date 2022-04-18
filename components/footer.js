@@ -10,6 +10,8 @@ export default function Footer(){
                         <li><a className="fs-10" href="https://www.freepik.com/vectors/finance-app">Finance app vector created by vectorjuice - www.freepik.com</a></li>
                         <li><a className="fs-10" href="https://www.freepik.com/vectors/money-cartoon">Money cartoon vector created by vectorjuice - www.freepik.com</a></li>
                         <li><a className="fs-10" href="https://www.flaticon.com/free-icons/ticket" title="ticket icons">Ticket icons created by Freepik - Flaticon</a></li>
+                        <li><a className="fs-10" href="https://www.freepik.com/vectors/regret">Regret vector created by syarifahbrit - www.freepik.com</a></li>
+                        <li><a className="fs-10" href='https://www.freepik.com/vectors/laugh'>Laugh vector created by mamewmy - www.freepik.com</a></li>
                     </ul>
                     <div className="fs-15" align="center">Copyright (c) 2022 The New York Times Company.  All Rights Reserved.</div>
                 </div>

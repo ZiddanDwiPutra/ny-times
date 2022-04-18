@@ -23,15 +23,16 @@ export default class Transaction{
     saveTransaction(){
         const {itemId, dateTime, type, price} = this
         StorageManager.addTransactions({itemId, dateTime, type, price})
-        if(this.type == Transaction.TYPE.COIN) this.saveBalanceHistory({itemId, price})
+        if(this.type == Transaction.TYPE.COIN) this.saveBalanceHistory({itemId, price, type: Balance.TYPE.COIN})
+        if(this.type == Transaction.TYPE.TICKET) this.saveBalanceHistory({itemId, price, type: Balance.TYPE.TICKET})
     }
     
-    saveBalanceHistory({itemId, price}){
+    saveBalanceHistory({itemId, price, type}){
         StorageManager.addBalanceHistory({
             total: -price,
             refId: itemId,
             refObject: "transaction",
-            type: Balance.TYPE.COIN
+            type: type
         })
     }
 

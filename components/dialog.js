@@ -2,7 +2,7 @@ export default function Dialog({ app, dialogSize,  isVisible, title = "Dialog", 
 
     const confirmationButton = (
         <div className="dialog-footer">
-            <button className="btn-blue" onClick={()=>handleConfirmation(true, callback, app)}>Accept</button>
+            <button className="btn-blue mr-1" onClick={()=>handleConfirmation(true, callback, app)}>Accept</button>
             <button className="btn-gray" onClick={()=>handleConfirmation(false, callback, app)}>Cancel</button>
         </div>
     )

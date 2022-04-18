@@ -24,6 +24,10 @@ export default class StorageManager{
     static getBalanceHistory(type){
         return Lib.getFromStorage(this.KEY.BALANCE_HISTORY, true).filter(obj=>obj.type == type)
     }
+
+    static getBalanceHistoryWithRefObject(type, refObject){
+        return Lib.getFromStorage(this.KEY.BALANCE_HISTORY, true).filter(obj=>obj.type == type && obj.refObject == refObject)
+    }
     
     static addBalanceHistory({total, refId, refObject, type}){
         Lib.addToStorage(this.KEY.BALANCE_HISTORY, {total, refId, refObject, type}, true)
