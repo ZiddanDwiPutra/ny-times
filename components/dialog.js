@@ -1,4 +1,4 @@
-export default function Dialog({ app, dialogSize,  isVisible, title = "Dialog", children, footer, type, callback }){
+export default function Dialog({ app, dialogSize,  isVisible, title = "Dialog", children, footer, type, options = {},callback }){
 
     const confirmationButton = (
         <div className="dialog-footer">
@@ -8,7 +8,7 @@ export default function Dialog({ app, dialogSize,  isVisible, title = "Dialog", 
     )
 
     return (
-        <div className={"wrapper ".concat(isVisible ? "":"d-none")}>
+        <div className={"wrapper ".concat(isVisible ? "":"d-none")} onClick={()=>closeDialog(app, options)}>
             <div className={"dialog ".concat( "dialog-size-" + dialogSize)}>
                 <div className="dialog-title bold">{title}</div>
                 <div className="dialog-body">{children}</div>
@@ -21,4 +21,9 @@ export default function Dialog({ app, dialogSize,  isVisible, title = "Dialog", 
 function handleConfirmation(condition, callback, app){
     callback(condition)
     app.closeDialog()
+}
+
+function closeDialog(app, options){
+    if(options.isWrapperClicked)app.closeDialog()
+    if(typeof options.wrapperClicked == "function") options.wrapperClicked()
 }

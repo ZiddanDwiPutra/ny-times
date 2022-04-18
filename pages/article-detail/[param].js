@@ -2,10 +2,12 @@ import Components from "../../styles/Components.module.css"
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import PurchaseConfirmationBody from "../../components/purchase-confirmation-body"
 import StorageManager from "../../src/storageManager"
 import Lib from "../../src/lib"
 import Transaction from "../../src/transaction"
+import wavyBus from "../../public/assets/wavy_bus.jpg"
 
 export default function ArticleDetail({ app }){
     const [isPurchased, setIsPurchased] = useState(false);
@@ -21,10 +23,10 @@ export default function ArticleDetail({ app }){
         <div className={Components.pageBox + " container-fluid"}>
             <div className={Components.pageTextHeader}>Article Detail</div>
             <div className="row">
-                <div className="col-md-4">
+                <div className={article.hasMetaData ? "col-md-4": ""}>
                     {article.hasMetaData? <Image src={article.metadata.url} width={article.metadata.width} height={article.metadata.height}/>: ""}
                 </div>
-                <div className="col-md-8">
+                <div className={article.hasMetaData ? "col-md-8": ""}>
                     <div className="fs-30 bold">{article.title}</div>
                     <div className="fs-10 light">{article.byline}</div>
                     <div className="fs-10 light">{article.publishDate}</div>
@@ -78,7 +80,11 @@ function openOriginalClick(url){
 
 function buyClick(app, article){
     const {coins} = app.getBalance()
-    if(coins < article.priceNum)return alert("money not available")
+    if(coins < article.priceNum)return openInsufficientCoins(app)
+    openPurchaseConfirmation(app, article)   
+}
+
+function openPurchaseConfirmation(app, article){
     app.showDialog({
         title: "Purchase Confirmation", 
         type: app.dialogType.CONFIRMATION, 
@@ -91,5 +97,27 @@ function buyClick(app, article){
                 location.reload()
             }
         }
+    })
+}
+
+function openInsufficientCoins(app){
+    const body = (
+        <div align="center">
+            <div className="fs-15">go to lucky coin page if you want to draw free coin by using 1 lucky ticket</div>
+            <Image src={wavyBus} alt="image Insufficient coins" width={150} height={150}/>
+        </div>
+    )
+    const footer = (
+        <div align="center" className="absolute-bottom">
+            <Link passHref href={"/lucky-coin"}>
+                <button className="fs-15 btn-blue" onClick={()=>app.closeDialog()}>Lucky Coins</button>
+            </Link>
+        </div>
+    )
+    app.showDialog({
+        title: "Ooopss Insufficient Coins", 
+        body, 
+        footer,
+        dialogSize: app.dialogSize.SM
     })
 }

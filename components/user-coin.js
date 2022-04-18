@@ -12,9 +12,9 @@ export default function UserCoin({ app }){
     return (
         <div className="mb-1">
             <div align="right" className="box bg-black">
-                <div className="bold fs-15">{app.userName}</div>
-                <div className="fs-10">{Lib.setToDigitFormat(balance.coins)} NYT Coins</div>
-                <div className="fs-10">{balance.tickets} Lucky Tickets</div>
+                <div className="bold fs-10">{app.userName}</div>
+                <div className="fs-10 light">{Lib.setToDigitFormat(balance.coins)} NYT Coins</div>
+                <div className="fs-10 light">{balance.tickets} Lucky Tickets</div>
             </div>
         </div>
     )

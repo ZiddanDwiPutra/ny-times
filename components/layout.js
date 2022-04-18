@@ -31,9 +31,9 @@ export default function Layout({ children , app}) {
 
 function useEffectOnce(app, {setIsDialog, setDialogData}){
 	useEffect(()=>{
-		app.toggleDialog = (value, {title, type, body, dialogSize, footer, callback})=>{
+		app.toggleDialog = (value, {title, type, body, dialogSize, footer, options, callback})=>{
 			setIsDialog(value)
-			setDialogData({title, type, body, dialogSize, footer, callback})
+			setDialogData({title, type, body, dialogSize, footer, options, callback})
 			if(value)document.body.style.overflowY = "hidden"
 			else document.body.style.overflowY = "auto"
 		}
