@@ -65,8 +65,8 @@ function Articles({searchValue, dataList, limitPerPage, pageNumber, setTotalPage
 function Pagination({pageNumber, totalPage, setPageNumber}){
     return (
         <div align="right">
-            <button className="fs-15 no-min-width" disabled={pageNumber==1? true: false} onClick={()=>setPageNumber(--pageNumber)}><i className="bi-caret-left-square-fill"/></button>
-            <button className="fs-15 no-min-width" style={{paddingTop: "15px"}}>{pageNumber}</button>
+            <button className="fs-15 no-min-width mr-1" disabled={pageNumber==1? true: false} onClick={()=>setPageNumber(--pageNumber)}><i className="bi-caret-left-square-fill"/></button>
+            <button className="fs-15 no-min-width mr-1" style={{paddingTop: "15px"}}>{pageNumber}</button>
             <button className="fs-15 no-min-width" disabled={pageNumber==totalPage? true: false} onClick={()=>setPageNumber(++pageNumber)}><i className="bi-caret-right-square-fill"/></button>
         </div>
     )
