@@ -20,9 +20,9 @@ export default function LuckyCoin({ app }){
     return (
         <div className={Components.pageBox + " container-fluid"}>
             <div className={Components.pageTextHeader}>Lucky Coins</div>
-            <p className="fs-15">Click "DRAW" button below to get free coins</p>
+            <p className="fs-15">{"Click \"DRAW\" button below to get free coins"}</p>
             <div align="center" className="mb-3">
-                <Image src={img} width={300} height={300}/>
+                <Image src={img} alt="background" width={300} height={300}/>
                 <div>
                     <span className={Components.price}>{"1 Lucky Ticket"}</span>
                 </div>
@@ -52,7 +52,7 @@ function openResultDialog(app, result){
     const body = (
         <div align="center">
             <div className="fs-15">{result.text}</div>
-            <Image src={result.reward == 0 ? unlucky : happy} alt="image Insufficient coins" width={150} height={150}/>
+            <Image src={result.reward == 0 ? unlucky : happy} alt="result expression" width={150} height={150}/>
         </div>
     )
     const footer = (
@@ -84,7 +84,7 @@ function _addBalance(app, total){
 function openInsufficientTickets(app){
     const body = (
         <div align="center">
-            <div className="fs-15">Sorry you don't have ticket for draw free coin</div>
+            <div className="fs-15">{"Sorry you don't have ticket for draw free coin"}</div>
             <Image src={WavyBus} alt="image Insufficient coins" width={150} height={150}/>
         </div>
     )
