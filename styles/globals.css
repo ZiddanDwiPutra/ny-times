@@ -166,15 +166,8 @@ button:active{
   min-width: 0;
 }
 
-.rotate {
-  animation: rotation 2s infinite linear;
-}
-
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
+.loading {
+  position: absolute;
+  top: 20%;
+  width: 100%;
 }
