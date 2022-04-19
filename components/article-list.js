@@ -19,7 +19,7 @@ export default function ArticleList({ app , isPurchasedOnly = false }){
     ]
 
     useEffect(()=>{
-        if(filterItems.length>0) filterChange(isPurchasedOnly? "purchased": filterItems[0].id, setArticles)
+        if(filterItems.length>0 && isPurchasedOnly) filterChange("purchased", setArticles)
     }, []);
     
     useEffect(()=>setPageNumber(1), [searchValue, filterBy])
@@ -74,9 +74,9 @@ function Pagination({pageNumber, totalPage, setPageNumber}){
 
 function filterChange(filterId, setArticles){
     if(filterId=="most_viewed") MainApi.getMostViewed(response=>setArticles(response.results))  
-    if(filterId=="most_shared") MainApi.getMostShared(response=>setArticles(response.results))  
-    if(filterId=="most_emailed") MainApi.getMostEmailed(response=>setArticles(response.results))
-    if(filterId=="purchased"){
+    else if(filterId=="most_shared") MainApi.getMostShared(response=>setArticles(response.results))  
+    else if(filterId=="most_emailed") MainApi.getMostEmailed(response=>setArticles(response.results))
+    else if(filterId=="purchased"){
         setTimeout(()=>{
             setArticles(StorageManager.getPurchasedArticles())
         }, 100)

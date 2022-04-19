@@ -11,8 +11,14 @@ export default class MainApi{
         .then((res) => res.json())
         .then((data) => {
             Wrapper.hideLoading()
-            onSuccess(data);
+            if(data.fault)MainApi.handleFault(data, url, onSuccess)
+            else onSuccess(data);
         });
+    }
+    static handleFault(data, url, onSuccess){
+        Wrapper.showLoading()
+        // wait 30 seconds because quota limitation from nytimes api
+        setTimeout(()=>MainApi.getData(url, onSuccess), 30000)
     }
 
     static getMostEmailed(onSuccess) {
