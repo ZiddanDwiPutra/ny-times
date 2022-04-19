@@ -45,7 +45,7 @@ function WelcomeBody(){
 function WelcomeFooter(app){
     return(
         <div align="center" className="absolute-bottom">
-            <button className="fs-15 btn-blue" onClick={()=>browseClick(app)}>BROWSE</button>
+            <button data-testid="browse-btn-init" className="fs-15 btn-blue" onClick={()=>browseClick(app)}>BROWSE</button>
         </div>
     )
 }

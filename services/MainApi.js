@@ -1,4 +1,4 @@
-import Wrapper from "../src/wrapper";
+import Wrapper from "../src/wrapper"
 
 export default class MainApi{
     static get key(){

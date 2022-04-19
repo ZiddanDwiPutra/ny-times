@@ -8,7 +8,7 @@ export default function Dialog({ app, dialogSize,  isVisible, title = "Dialog", 
     )
 
     return (
-        <div className={"wrapper ".concat(isVisible ? "":"d-none")} onClick={()=>closeDialog(app, options)}>
+        <div className={"wrapper ".concat(isVisible ? "":"d-none")} onClick={()=>closeDialog(app, options)} data-testid="dialog">
             <div className={"dialog ".concat( "dialog-size-" + dialogSize)}>
                 <div className="dialog-title bold">{title}</div>
                 <div className="dialog-body">{children}</div>
