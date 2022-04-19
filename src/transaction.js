@@ -7,6 +7,11 @@ export default class Transaction{
         this.dateTime = new Date().toString()
         this.type = type
         this.item = item
+        this.callback = undefined // interface for callback
+    }
+
+    setCallback(callback){
+        this.callback = callback
     }
 
     purchase(){
@@ -23,17 +28,26 @@ export default class Transaction{
     saveTransaction(){
         const {itemId, dateTime, type, price} = this
         StorageManager.addTransactions({itemId, dateTime, type, price})
-        if(this.type == Transaction.TYPE.COIN) this.saveBalanceHistory({itemId, price, type: Balance.TYPE.COIN})
-        if(this.type == Transaction.TYPE.TICKET) this.saveBalanceHistory({itemId, price, type: Balance.TYPE.TICKET})
+        if(this.type == Transaction.TYPE.COIN) {
+            this._saveBalanceHistory({itemId, price, type: Balance.TYPE.COIN})
+            this._saveLastTotalPurchasing(price)
+        }if(this.type == Transaction.TYPE.TICKET) this._saveBalanceHistory({itemId, price, type: Balance.TYPE.TICKET})
     }
     
-    saveBalanceHistory({itemId, price, type}){
+    _saveBalanceHistory({itemId, price, type}){
         StorageManager.addBalanceHistory({
             total: -price,
             refId: itemId,
             refObject: "transaction",
             type: type
         })
+    }
+
+    _saveLastTotalPurchasing(total){
+        const lastTotal = StorageManager.getLastTotalPurchasing() + total
+        const isMoreEqual50k = lastTotal >= 50000
+        StorageManager.setLastTotalPurchasing( isMoreEqual50k ? 0 : lastTotal)
+        if(this.callback) this.callback({isMoreEqual50k})
     }
 
     static get TYPE(){

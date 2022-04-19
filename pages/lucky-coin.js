@@ -11,22 +11,16 @@ import LuckyCoinProccess from "../src/luckyCoinProccess"
 import StorageManager from "../src/storageManager"
 
 export default function LuckyCoin({ app }){
-    const [balance, setBalance] = useState({tickets: 0})
-
-    useEffect(()=>{
-        setBalance(new Balance())
-    }, [])
-    
     return (
         <div className={Components.pageBox + " container-fluid"}>
             <div className={Components.pageTextHeader}>Lucky Coins</div>
-            <p className="fs-15">{"Click \"DRAW\" button below to get free coins"}</p>
+            <div className="fs-15">{"Click \"DRAW\" button below to get random free coins"}</div>
+            <div className="fs-10">{"* 1x Lucky Ticket Required"}</div>
             <div align="center" className="mb-3">
                 <Image src={img} alt="background" width={300} height={300}/>
                 <div>
-                    <span className={Components.price}>{"1 Lucky Ticket"}</span>
+                    <button className="btn-green" onClick={()=>drawClick(app)}>DRAW</button>
                 </div>
-                <button className="btn-green" onClick={()=>drawClick(app, balance)}>DRAW</button>
             </div>
             <div className="box">
                 <ul className="line-height-20">
@@ -40,7 +34,8 @@ export default function LuckyCoin({ app }){
 }
 
 function drawClick(app, balance){
-    if(balance.tickets == 0)return openInsufficientTickets(app)
+    const { tickets } = app.getBalance()
+    if(tickets == 0) return openInsufficientTickets(app)
     const transaction = new Transaction({id: "NO_ID"}, Transaction.TYPE.TICKET)
     transaction.purchase()
     const process = new LuckyCoinProccess()
@@ -76,8 +71,8 @@ function _addBalance(app, total){
             refObject: "lucky_coin",
             type: Balance.TYPE.COIN
         })
-        app.refreshBalance()
     }
+    app.refreshBalance()
     app.closeDialog()
 }
 

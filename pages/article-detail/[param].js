@@ -8,11 +8,17 @@ import StorageManager from "../../src/storageManager"
 import Lib from "../../src/lib"
 import Transaction from "../../src/transaction"
 import wavyBus from "../../public/assets/wavy_bus.jpg"
+import ticket from "../../public/assets/ticket.png"
+import happy from "../../public/assets/happy.jpg"
+import Balance from "../../src/balance"
+
+function purchaseAction(condition){} // interface
 
 export default function ArticleDetail({ app }){
     const [isPurchased, setIsPurchased] = useState(false);
     const router = useRouter()
     const { param } = router.query
+    purchaseAction = setIsPurchased
     
     const article = decodeParam(app, param)
     useEffectByParam(param, setIsPurchased, article ? article.id : "")
@@ -93,11 +99,17 @@ function openPurchaseConfirmation(app, article){
         callback: condition=>{
             const transaction = new Transaction(article)
             if(condition) {
+                transaction.setCallback((emit)=>handleMoreEqual50k(emit, app))
                 transaction.purchase()
-                location.reload()
+                purchaseAction(true)
+                app.refreshBalance()
             }
         }
     })
+}
+
+function handleMoreEqual50k({ isMoreEqual50k }, app){
+    if(isMoreEqual50k) setTimeout(()=>openGotLuckyTickets(app), 100)
 }
 
 function openInsufficientCoins(app){
@@ -120,4 +132,43 @@ function openInsufficientCoins(app){
         footer,
         dialogSize: app.dialogSize.SM
     })
+}
+
+function openGotLuckyTickets(app){
+    const closeDialog = ()=>{
+        app.closeDialog()
+        _add3LuckyTicket(app)
+    }
+
+    const body = (
+        <div align="center">
+            <div className="fs-15">congrats you got 3 lucky tickets, go to lucky coin page and get free coins</div>
+            <Image src={ticket} alt="image got lucky tickets" width={100} height={100}/>
+            <div>
+                <Image src={happy} alt="image happy" width={150} height={150}/>
+            </div>
+        </div>
+    )
+    const footer = (
+        <div align="center" className="absolute-bottom">
+            <button className="fs-15 btn-blue" onClick={()=>closeDialog()}>OK</button>
+        </div>
+    )
+    
+    app.showDialog({
+        title: "Free Tickets", 
+        body, 
+        footer,
+        dialogSize: app.dialogSize.SM
+    })
+}
+
+function _add3LuckyTicket(app){
+    StorageManager.addBalanceHistory({
+        total: 3,
+        refId: "",
+        refObject: "lucky_ticket_addition",
+        type: Balance.TYPE.TICKET
+    })
+    app.refreshBalance()
 }

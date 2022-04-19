@@ -6,6 +6,8 @@ export default class StorageManager{
             TRANSACTION: "TRANSACTION",
             PURCHASED_ARTICLES: "PURCHASED_ARTICLES",
             BALANCE_HISTORY: "BALANCE_HISTORY",
+            USER_NAME: "USER_NAME",
+            TOTAL_PURCHASING: "TOTAL_PURCHASING",
         }
     }
 
@@ -34,11 +36,19 @@ export default class StorageManager{
     }
 
     static getUserName(){
-        return localStorage.getItem("USER_NAME")
+        return localStorage.getItem(this.KEY.USER_NAME)
     }
 
     static setUserName(value){
-        localStorage.setItem("USER_NAME", value)
+        localStorage.setItem(this.KEY.USER_NAME, value)
+    }
+
+    static getLastTotalPurchasing(){
+        const value = localStorage.getItem(this.KEY.TOTAL_PURCHASING)
+        return value == null ? 0 : Number(value)
+    }
+    static setLastTotalPurchasing(value){
+        localStorage.setItem(this.KEY.TOTAL_PURCHASING, value)
     }
 
 }

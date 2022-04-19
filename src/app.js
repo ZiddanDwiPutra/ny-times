@@ -3,7 +3,6 @@ import Balance from "./balance"
 export default class App{
 	constructor(){
 		this.appName = "NYTimes"
-		this.isShowDialog = false
 		this.userName = "@UserDemo_01"
 		this.coins = 0
 		this.tickets = 0
