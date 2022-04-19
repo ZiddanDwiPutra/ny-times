@@ -143,9 +143,10 @@ function openGotLuckyTickets(app){
     const body = (
         <div align="center">
             <div className="fs-15">congrats you got 3 lucky tickets, go to lucky coin page and get free coins</div>
-            <Image src={ticket} alt="image got lucky tickets" width={100} height={100}/>
-            <div>
-                <Image src={happy} alt="image happy" width={150} height={150}/>
+            <div className="row">
+                <div className="col-md-2"></div>
+                <div className="col-md-4"><Image src={ticket} alt="image got lucky tickets" width={100} height={100}/></div>
+                <div className="col-md-4"><Image src={happy} alt="image happy" width={150} height={150}/></div>
             </div>
         </div>
     )

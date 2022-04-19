@@ -33,8 +33,10 @@ function WelcomeBody(){
         <div className="fs-15">
             Congratulations, you got 100,000 coins as initial credit, coins can be used as payment, browse and explore various articles in the New York Times. 
             <div className="fs-10"> * Click Browse button below to continue</div>
-            <div className="mb-1" align="center">
-                <Image alt="welcome-party" src={WelcomeImg} width={200} height={180}/>
+            <div className="mb-1 row" align="center">
+                <div className="col-md-12">
+                    <Image alt="welcome-party" src={WelcomeImg} width={180} height={150}/>
+                </div>
             </div>
         </div>
     )
