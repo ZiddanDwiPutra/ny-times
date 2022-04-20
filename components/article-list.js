@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import MainApi from "../services/MainApi";
-import StorageManager from "../src/storageManager";
-import Article from "./article";
-import DropDown from "./drop-down";
-import SearchBar from "./search-bar";
+import { useState, useEffect, useRef } from "react"
+import MainApi from "../services/MainApi"
+import StorageManager from "../src/storageManager"
+import Article from "./article"
+import DropDown from "./drop-down"
+import SearchBar from "./search-bar"
 
 export default function ArticleList({ app , isPurchasedOnly = false }){
     const [articles, setArticles] = useState([])
@@ -23,6 +23,9 @@ export default function ArticleList({ app , isPurchasedOnly = false }){
     }, []);
     
     useEffect(()=>setPageNumber(1), [searchValue, filterBy])
+    useEffect(()=>{
+        document.body.scrollIntoView()
+    }, [pageNumber])
 
     return (
         <div className="container m-1">

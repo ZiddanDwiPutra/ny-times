@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import Balance from "../src/balance"
 import StorageManager from "../src/storageManager"
 const {localStorage} = window
 
@@ -18,6 +19,24 @@ test("StorageManager all key is defined", ()=>{
 
 test("add and get purchased articles", ()=>{
     const article = {id: "test", title: "test"}
-    expect(StorageManager.addPurchasedArticles(article)).toBeValid
+    StorageManager.addPurchasedArticles(article)
     expect(StorageManager.getPurchasedArticles().length).toBe(1)
+})
+
+test("add and get balance history", ()=>{
+    const balanceHistory = {
+        total: 1000,
+        refObject: "test",
+        type: Balance.TYPE.COIN
+    }
+    StorageManager.addBalanceHistory(balanceHistory)
+    
+    // select by type coin
+    expect(StorageManager.getBalanceHistory(Balance.TYPE.COIN).length).toBe(1)
+    
+    // select by type tickets
+    expect(StorageManager.getBalanceHistory(Balance.TYPE.TICKET).length).toBe(0)
+
+    // select by type coin and refObject test
+    expect(StorageManager.getBalanceHistoryWithRefObject(Balance.TYPE.COIN, "test").length).toBe(1)
 })

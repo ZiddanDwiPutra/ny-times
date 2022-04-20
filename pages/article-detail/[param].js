@@ -121,9 +121,7 @@ function openInsufficientCoins(app){
     )
     const footer = (
         <div align="center" className="absolute-bottom">
-            <Link passHref href={"/lucky-coin"}>
-                <button className="fs-15 btn-blue" onClick={()=>app.closeDialog()}>Lucky Coins</button>
-            </Link>
+            <button className="fs-15 btn-blue" onClick={()=>app.closeDialog()}>OK</button>
         </div>
     )
     app.showDialog({
