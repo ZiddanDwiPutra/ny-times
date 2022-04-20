@@ -54,7 +54,7 @@ function Articles({searchValue, dataList, limitPerPage, pageNumber, setTotalPage
             article.title.toLowerCase().includes(searchValue.toLowerCase()) || 
             article.abstract.toLowerCase().includes(searchValue.toLowerCase()))
         
-        setTotalPage(result.length <= limitPerPage? 1 : Math.round(result.length / 5))
+        setTotalPage(result.length <= limitPerPage? 1 : Math.round((result.length / 5) + 0.4))
         setFilteredList(result.splice(limitPerPage*(pageNumber-1), limitPerPage))
     }, [searchValue, dataList, app, limitPerPage, pageNumber])
     
@@ -69,7 +69,7 @@ function Pagination({pageNumber, totalPage, setPageNumber}){
     return (
         <div align="right">
             <button className="fs-15 no-min-width mr-1" disabled={pageNumber==1? true: false} onClick={()=>setPageNumber(--pageNumber)}><i className="bi-caret-left-square-fill"/></button>
-            <button className="fs-15 no-min-width mr-1" style={{paddingTop: "15px"}}>{pageNumber}</button>
+            <button className="fs-15 no-min-width mr-1" style={{paddingTop: "15px"}}>{pageNumber} of {totalPage}</button>
             <button className="fs-15 no-min-width" disabled={pageNumber==totalPage? true: false} onClick={()=>setPageNumber(++pageNumber)}><i className="bi-caret-right-square-fill"/></button>
         </div>
     )
@@ -82,6 +82,7 @@ function filterChange(filterId, setArticles){
     else if(filterId=="purchased"){
         setTimeout(()=>{
             setArticles(StorageManager.getPurchasedArticles())
+            console.log(StorageManager.getPurchasedArticles())
         }, 100)
     }
 }
