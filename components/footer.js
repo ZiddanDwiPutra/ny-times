@@ -1,4 +1,10 @@
 export default function Footer(){
+    const resetHint = "for reset all of data to start again"
+
+    function reset(){
+        localStorage.clear()
+        location.href = "/"
+    }
     return (
         <div className="container-fluid bg-black" style={{marginTop: "100px", paddingTop: "100px"}}>
             <div className="row">
@@ -14,6 +20,10 @@ export default function Footer(){
                         <li><a className="fs-10" href='https://www.freepik.com/vectors/laugh'>Laugh vector created by mamewmy - www.freepik.com</a></li>
                     </ul>
                     <div className="fs-15" align="center">Copyright (c) 2022 The New York Times Company.  All Rights Reserved.</div>
+                    
+                    <div align="center">
+                        <a className="fs-10" style={{textDecoration: "underline", cursor: "pointer"}} onClick={()=>reset()} title={resetHint}>reset</a>
+                    </div>
                 </div>
             </div>
         </div>
